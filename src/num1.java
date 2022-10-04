@@ -3,20 +3,19 @@ public class num1 {
     public static void main(String[] args) {
         Scanner num = new Scanner(System.in);
         int n = num.nextInt();
-        int a = 1, b = 1;
-        if (n == 1 || n == 2) {
-            System.out.println(1);
-        }
-        else {
-            for (int i = 0; i < n-2; ++i) {
-                if (a<b) {
-                    a=a+b;
-                }
-                else {
-                    b=b+a;
-                }
+        int d = num.nextInt();        //число которое нужно удалить
+        int f = 0;                    //число которое выведется в конце
+        int count = 0;
+        while (n > 0) {
+            if (n % 10 != d) {
+                ++count;
+                f += n%10 * Math.pow(10, count-1);
+                n /= 10;
             }
-            System.out.println(Math.max(a, b));
+            else {
+                n /= 10;
+            }
         }
-    }
+        System.out.println(f);
+;   }
 }
