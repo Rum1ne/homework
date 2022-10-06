@@ -37,6 +37,8 @@ public class MyArrays {
     }
 
     public static void main(String[] args) {
+        int[] numbers = {12, 8, 1000, 9, 3000};
+        System.out.println(avgOf4Digit(numbers));
         int[] num = {3, 2, 1};
         System.out.println(Arrays.toString(minToBegin(num)));        //тут идея помогла
     }
