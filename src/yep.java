@@ -1,84 +1,42 @@
-import java.util.Arrays;
 import java.util.Scanner;
 
+/*
+Может ли покемон с введёными характеристиками победить на одной из стадий эволюций
+Что он скажет на второй стадии при победе/поражение
+Кританёт ли он на третьей стадии вообще..
+
+Данные для проверки кода
+Pikachu 10 400 100 10000 4 Nah! 70 270
+Ivi 70 1200 50 80000 8 bruh 90 190
+*/
 public class yep {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        int l = in.nextInt();
-        int n = 0;
-        if (l % 8 == 0) n = l / 8;
-        else n = l / 8 + 1;
-        byte[] arr = new byte[n];
-        if (l - (n - 1) * 8 == 8) {
-            for (int i = 0; i < n; ++i) {
-                int count = 8;
-                int m = 0;
-                byte k = 0;
-                while (count > 0 && 8 >= m) {
-                    String b = in.next();
-                    if (b.equals("true")) {
-                        k += Math.pow(2, count - 1);
-                    }
-                    --count;
-                    ++m;
-                }
-                arr[i] = k;
-            }
-        } else {
-            for (int i = 0; i < n - 1; ++i) {
-                int count = 8;
-                int m = 0;
-                byte k = 0;
-                while (count > 0 && 8 >= m) {
-                    String b = in.next();
-                    if (b.equals("true")) {
-                        k += Math.pow(2, count - 1);
-                    }
-                    --count;
-                    ++m;
-                }
-                arr[i] = k;
-            }
-            int count = 0;
-            byte k = 0;
-            while (l - (n - 1) * 8 > count) {
-                String b = in.next();
-                if (b.equals("true")) {
-                    k += Math.pow(2, l - (n - 1) * 8 - 1 - count);
-                }
-                ++count;
-            }
-            arr[n - 1] = k;
-        }
-        //System.out.println(Arrays.toString(arr));
-        String s = "";
-        if (l - (n - 1) * 8 == 8) {
-            for (byte a : arr) {
-                for (int i = 8; i > 0; --i) {
-                    if (a % 2 == 0) s = "false " + s;
-                    else s = "true " + s;
-                    a /= 2;
-                }
-            }
-        } else {
-            String w = "";
-            for (int j = 0; j < n - 1; ++j) {
-                for (int i = 8; i > 0; --i) {
-                    if (arr[j] % 2 == 0) w = "false " + w;
-                    else w = "true " + w;
-                    arr[j] /= 2;
-                }
-                s += w;
-                w = "";
-            }
-            for (int i = l - (n - 1) * 8; i > 0; --i) {
-                if (arr[n-1] % 2 == 0) w = "false " + w;
-                else w = "true " + w;
-                arr[n-1] /= 2;
-            }
-            s+=w;
-        }
-        System.out.println(s);
-
+        Pokemon first = new Pokemon();
+        first.setName(in.next());                                        //имя покемона
+        first.setPokemonpower(in.nextInt());                             //сила покемона
+        first.setPokemonhp(in.nextInt());                                //здоровье покемона
+        first.setEnemypower(in.nextInt());                               //сила противника
+        first.setEnemyhp(in.nextInt());                                  //здоровье противника
+        NicePokemon second = new NicePokemon();
+        second.name = first.name;
+        second.pokemonpower = first.pokemonpower * 8;
+        second.pokemonhp = first.pokemonhp * 4;
+        second.enemypower = first.enemypower;
+        second.enemyhp = first.enemyhp;
+        second.setUlt(in.nextInt());                                      //количество атак необходимое для заряжания ульты
+        BestPokemon third = new BestPokemon();
+        third.name = first.name;
+        third.pokemonpower = second.pokemonpower * 12;
+        third.pokemonhp = second.pokemonhp * 6;
+        third.enemypower = first.enemypower;
+        third.enemyhp = first.enemyhp;
+        third.ult = second.ult;
+        third.setNoise(in.next());                                        //звук при крите покемона
+        third.setCritChance(in.nextInt());                                //шанс крита
+        third.setCritDamage(in.nextInt());                                //процент дополнительного урона
+        first.boom();
+        second.boom();
+        third.boom();
     }
 }
